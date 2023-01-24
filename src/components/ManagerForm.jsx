@@ -3,40 +3,45 @@ import axios from "axios";
 
 
 
-function ManagerForm() {
-  const [title, setTitle] = useState("");
+function ManagerForm({ setLoaded}) {
+  const [subtitle, setSubtitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("")
 
   const  handleSubmit = (e) => {
     e.preventDefault();
-    const newManager = {
-      title,
+    // setTask('')
+    const newManager = { 
+      subtitle,
       price,
       description,
     };
 
     axios
       .post('http://localhost:5001/api/managers', newManager)
-      .then(res => console.log(res.data))
+      .then(res => {
+        console.log(res.data)
+        setLoaded(false);
+
+      })
       .catch(err => console.log(err));
   };
 
   return (
-    <div className="card">
+    <div className="card mb-3">
       <div className="card-body">
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="title" className="form-label">
+            <label htmlFor="subtitle" className="form-label">
               Title:
             </label>
             <input
               type="text"
-              name="title"
-              id="title"
+              name="subtitle"
+              id="subtitle"
               className="form-control"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={subtitle}
+              onChange={(e) => setSubtitle(e.target.value)}
             />
           </div>
 
@@ -67,8 +72,6 @@ function ManagerForm() {
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
-
-
 
 
           <div className="d-flex justify-content-end">
