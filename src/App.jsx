@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Main from "./pages/Main";
 import {Navigate, Routes, Route } from 'react-router-dom';
 import ManagerDetail from './pages/ManagerDetail';
+import EditManager from './pages/EditManager';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Route path='/' element={<Navigate to='/managers' /> } />
         <Route path='/managers' element={<Main />} />
         <Route path='/managers/:id' element={<ManagerDetail /> } />
+        <Route path='/managers/:id/edit' element={<EditManager />} />
       </Routes>
     </div>
   )

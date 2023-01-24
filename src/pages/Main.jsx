@@ -27,7 +27,7 @@ function Main() {
       <h1>Main</h1>
       {/* {title && <h2>Title: {title} </h2>} */}
       <ManagerForm setLoaded={setLoaded}/>
-      {loaded && <ManagerList managers={reversedManagers} />}
+      {loaded && <ManagerList managers={reversedManagers} setLoaded={setLoaded}/>}
     </div>
   );
 }
