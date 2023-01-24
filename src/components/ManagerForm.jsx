@@ -10,7 +10,10 @@ function ManagerForm({ setLoaded}) {
 
   const  handleSubmit = (e) => {
     e.preventDefault();
-    // setTask('')
+    setSubtitle('')
+    setPrice('')
+    setDescription('')
+    
     const newManager = { 
       subtitle,
       price,
