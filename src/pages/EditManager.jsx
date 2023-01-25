@@ -44,12 +44,14 @@ function EditManager() {
     e.preventDefault();
 
     axios
-      .put(`http://localhost:5001/api/managers/${id}`, {
-        subtitle: manager.subtitle,
-        price: manager.price,
-        description: manager.description,
-        isComplete: manager.isComplete,
-      })
+      .put(`http://localhost:5001/api/managers/${id}`, manager)
+
+      //instead of writing manager next to id u can write the long version like this too
+      // subtitle: manager.subtitle,
+      // price: manager.price,
+      // description: manager.description,
+      // isComplete: manager.isComplete,
+
       .then((res) => {
         console.log(res.data);
         navigate('/managers')

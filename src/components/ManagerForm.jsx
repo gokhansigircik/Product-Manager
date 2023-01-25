@@ -1,33 +1,36 @@
 import { useState } from "react";
 import axios from "axios";
 
-
-
-function ManagerForm({ setLoaded}) {
+function ManagerForm({ setLoaded }) {
   const [subtitle, setSubtitle] = useState("");
   const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("")
+  const [description, setDescription] = useState("");
+  const [errors, setErrors] = useState({});
 
-  const  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setSubtitle('')
-    setPrice('')
-    setDescription('')
-    
-    const newManager = { 
+    setSubtitle("");
+    setPrice("");
+    setDescription("");
+
+    const newManager = {
       subtitle,
       price,
       description,
     };
 
     axios
-      .post('http://localhost:5001/api/managers', newManager)
-      .then(res => {
-        console.log(res.data)
+      .post("http://localhost:5001/api/managers", newManager)
+      .then((res) => {
+        console.log(res.data);
+        setErrors({});
         setLoaded(false);
-
       })
-      .catch(err => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        // if u dont now what to put you can chain it like it and dont break your code
+        setErrors(err?.response?.data?.errors);
+      });
   };
 
   return (
@@ -46,6 +49,11 @@ function ManagerForm({ setLoaded}) {
               value={subtitle}
               onChange={(e) => setSubtitle(e.target.value)}
             />
+            {errors?.subtitle && (
+              <span className="form-text text danger">
+                {errors.subtitle.message}
+              </span>
+            )}
           </div>
 
           <div className="mb-3">
@@ -54,12 +62,18 @@ function ManagerForm({ setLoaded}) {
             </label>
             <input
               type="number"
+              min='0'
               name="price"
               id="price"
               className="form-control"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
+            {errors?.price && (
+              <span className="form-text text danger">
+                {errors.price.message}
+              </span>
+            )}
           </div>
 
           <div className="mb-3">
@@ -74,15 +88,22 @@ function ManagerForm({ setLoaded}) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
+              {errors?.description && (
+              <span className="form-text text danger">
+                {errors.description.message}
+              </span>
+            )}
+
           </div>
 
-
           <div className="d-flex justify-content-end">
-            <button type="submit" className="btn btn-primary">CREATE</button>
+            <button type="submit" className="btn btn-primary">
+              CREATE
+            </button>
           </div>
         </form>
       </div>
-    </div> 
+    </div>
   );
 }
 
